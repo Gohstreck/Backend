@@ -5,7 +5,7 @@ class Person(models.Model):
     name = models.CharField(max_length = 200)
     birthdate = models.DateTimeField("Fecha de nacimiento")
     is_admin = models.BooleanField(default = False)
-    mail = models.CharField(max_length = 200)
+    mail = models.EmailField(max_length = 200)
     phone_number = models.CharField(max_length = 200)
 
 class Institution(models.Model):
