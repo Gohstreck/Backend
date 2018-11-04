@@ -1,0 +1,38 @@
+# dependencias a instalar en djangoproject
+pip3 install psycopg2
+
+#instalar postgresql
+ apt install postgresql postgresql-contrib
+
+#configurar base de datos
+CREATE DATABASE proyecto;
+CREATE USER proyecto_modelado WITH PASSWORD '123qwe';
+GRANT ALL PRIVILEGES ON DATABASE proyecto TO proyecto_modelado;
+
+#crear base de datos
+python3 manage.py migrate
+python manage.py makemigrations polls
+python manage.py migrate polls
+
+#instalar pgadmin
+apt install pgadmin3
+psql -h localhost -d proyecto -U proyecto_modelado
+
+mostrar tablas en postgres
+\dt
+
+#Postman se crea la lista de endpoints
+para instalar postman:
+  sudo snap install postman
+  sudo snap install postman
+Ademas estoy usando pgadmin para ayudarme con el manejo de las bases de datos
+
+Para crear una pagina:
+  -Crear la url en polls.urls:
+    El primer y ultimo campo son para el nombre de la pagina (creo, lo he estado trabajando asi y jala)
+    El segundo campo es el nombre de la funcion dentro del archivo views
+  -Dentro de views crear la funcion para que haga lo que queramos
+    En este caso como andamos usando Postman, debemos ponerles el @csrf_exempt en las funciones que asi
+    lo requieran
+  -Despues en Postman copian y pegan la url, ponen que funcion deberia de obtener
+   y llenan los campos necesarios

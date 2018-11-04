@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Serie
+from models import *
 
 class PersonSerializer(serializers.Serializer):
     class Meta:
@@ -28,7 +28,7 @@ class InstitucionSerializer(serializers.Serializer):
     class Meta:
         model = Institucion
         fields = ('id_institucion','name')
-        
+
     id_institucion = serializers.IntegerField(read_only=True)
     name = serializers.Charfield()
 
@@ -39,16 +39,16 @@ class InstitucionSerializer(serializers.Serializer):
         instance.name=validated_data.get('name',instance.name)
         instance.save()
         return instance
-    
+
 class GroupSerializer(serializers.Serializer):
     class Meta:
         model = Group
         fields = ('id_group','name','members','leader')
-        
+
     id_group = serializers.IntegerField(read_only=True)
     name = serializers.Charfield()
     members = models.Charfield()
-    leader = models.
+    leader = models.CharField()
 
     def create(self, validated_data):
         return Group.objects.create(**validated_data)
@@ -97,7 +97,7 @@ class DepartmentSerializer(serializers.Serializer):
     class Meta:
         model = Department
         fields = ('id_department','phone_number','direction','id_branch')
-        
+
     id_department = serializers.IntegerField(read_only=True)
     phone_number  = serializers.Charfield()
     direction = serializers.Charfield()
@@ -115,7 +115,7 @@ class InvestigatorSerializer(serializers.Serializer):
     class Meta:
         model = Investigador
         fields = ('id_investigador','id_person','id_department')
-        
+
     id_investigator = serializers.IntegerField(read_only=True)
     id_person = serializers.IntegerField()
     id_department = serializers.IntegerField()
@@ -128,7 +128,7 @@ class InvestigatorSerializer(serializers.Serializer):
         instance.id_department = validated_data('id_person',instance.id_department)
         instance.save()
         return instance
-    
+
 class StudentSerializer(serializers.Serializer):
     class Meta:
         model = Student
@@ -146,4 +146,3 @@ class StudentSerializer(serializers.Serializer):
         instance.id_investigator = validated_data('id_person',instance.id_investigator)
         instance.save()
         return instance
-  
